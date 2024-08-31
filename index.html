@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trolley Problem</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .train-track {
+            width: 400px;
+            height: 10px;
+            background-color: black;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .person {
+            width: 50px;
+            position: absolute;
+        }
+
+        #michonne {
+            left: 0;
+            top: -50px;
+        }
+
+        #jane {
+            right: 0;
+            top: -50px;
+        }
+
+        #train {
+            width: 100px;
+            position: absolute;
+            left: 150px; /* Center of the track */
+            top: -40px;
+            transition: left 2s linear; /* Smooth animation */
+        }
+
+        #lever {
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #noButton {
+            position: absolute;
+        }
+
+        #endMessage {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h1>Do you choose to pull the lever?</h1>
+        <button id="yesButton">Yes</button>
+        <button id="noButton">No</button>
+    </div>
+    <div class="train-track">
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c72e2f68-1a1c-48a2-aa5f-edf7eaaf3548/d77q2tu-5c4f423d-f268-4f53-ab95-4cb461aebdc3.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2M3MmUyZjY4LTFhMWMtNDhhMi1hYTVmLWVkZjdlYWFmMzU0OFwvZDc3cTJ0dS01YzRmNDIzZC1mMjY4LTRmNTMtYWI5NS00Y2I0NjFhZWJkYzMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.n9d4UHw4xV4LoKrwMoTe4rYGMUWP8sdd_XrA7N0vomM" alt="Michonne" class="person" id="michonne">
+        <img src="https://img1.picmix.com/output/stamp/normal/4/3/2/5/2165234_aac22.png" alt="Jane Margolis" class="person" id="jane">
+        <img src="train.png" alt="Train" id="train"> <!-- Local train image -->
+    </div>
+    <div id="lever" style="display: none;">Lever Pulled! Train is moving...</div>
+    <div id="endMessage">
+        0.1% of players chose this option. You are not a true Michonne fan :(
+        <br>
+        <button id="retryButton">Retry</button>
+    </div>
+
+    <script>
+        const noButton = document.getElementById("noButton");
+        const yesButton = document.getElementById("yesButton");
+        const lever = document.getElementById("lever");
+        const train = document.getElementById("train");
+        const endMessage = document.getElementById("endMessage");
+        const retryButton = document.getElementById("retryButton");
+
+        noButton.addEventListener("mouseover", function() {
+            const randomX = Math.random() * (window.innerWidth - noButton.clientWidth);
+            const randomY = Math.random() * (window.innerHeight - noButton.clientHeight);
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+        });
+
+        yesButton.addEventListener("click", function() {
+            lever.style.display = "block";
+            train.style.left = '0px'; // Move the train to Michonne
+            setTimeout(function() {
+                endMessage.style.display = "block"; // Show the end message
+            }, 2000);
+        });
+
+        retryButton.addEventListener("click", function() {
+            endMessage.style.display = "none"; // Hide end message
+            lever.style.display = "none"; // Hide lever text
+            train.style.left = '150px'; // Reset train position to center
+        });
+    </script>
+</body>
+</html>
